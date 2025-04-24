@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: network_slimming_app
+    volumes:
+      - ./:/app
+    ports:
+      - '8888:8888'
+    # 支持 GPU，需要安装 NVIDIA Container Toolkit
+    device_requests:
+      - driver: nvidia
+        count: all
+        capabilities: ["gpu"]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - WANDB_API_KEY=${WANDB_API_KEY}
+    command: ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]

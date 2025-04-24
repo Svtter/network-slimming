@@ -98,3 +98,30 @@ Note: For results of pruning 60% of the channels for resnet164-cifar100, in this
 ## Contact
 sunmj15 at gmail.com 
 liuzhuangthu at gmail.com  
+## Docker & Docker Compose
+
+我们提供了 `Dockerfile` 和 `docker-compose.yml`，以便快速部署和启动环境：
+
+1. 构建镜像：
+   ```bash
+   docker-compose build
+   ```
+   如果不使用 GPU，可以使用 `docker build -t network-slimming-app .`。
+
+2. 使用 GPU（需安装 NVIDIA Container Toolkit）：
+   ```bash
+   docker-compose up
+   ```
+   Compose 已配置 `device_requests` 来支持 CUDA 设备。
+
+3. 启动后打开浏览器访问：
+   ```
+   http://localhost:8888
+   ```
+
+4. 如需运行脚本或进入容器：
+   ```bash
+   docker-compose exec app bash
+   ```
+
+在容器内，工作目录为 `/app`，可以直接运行 `python main.py ...`、`python vggprune.py ...` 等命令。
